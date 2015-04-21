@@ -1,0 +1,29 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="separator">
+        <item name="android:id">@id/iSeparator</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/separatorSize</item>
+        <item name="android:focusable">false</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:src">@color/separatorColor</item>
+        <item name="android:contentDescription">separator</item>
+    </style>
+
+    <style name="separatorVertical" parent="separator">
+        <item name="android:layout_width">@dimen/separatorSize</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/shortMargin</item>
+        <item name="android:layout_marginBottom">@dimen/shortMargin</item>
+    </style>
+
+    <style name="actionBarItem">
+        <item name="android:background">?android:attr/actionBarItemBackground</item>
+    </style>
+
+</resources>

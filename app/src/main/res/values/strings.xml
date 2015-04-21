@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Watchdog</string>
+
+    <string name="pref_service">pref_service</string>
+
+    <string name="default_port_number">80</string>
+
+    <string name="send_email">Send email on warning</string>
+    <string name="email">Email</string>
+    <string name="alarm_on_warning">Alarm on warning</string>
+    <string name="address">Address</string>
+    <string name="ping">Ping</string>
+    <string name="get">Get</string>
+    <string name="new_entry">New</string>
+    <string name="discard">Discard</string>
+    <string name="done">Done</string>
+    <string name="canBeDelayed">Can be delayed</string>
+    <string name="frequency">Check Frequency</string>
+    <string name="help">Help</string>
+</resources>
