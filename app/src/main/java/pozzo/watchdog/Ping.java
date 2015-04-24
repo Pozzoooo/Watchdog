@@ -36,23 +36,18 @@ public class Ping {
 	 *
 	 * @return latency.
 	 */
-	public long pingRequestTcp(String address) {
+	public long pingRequestTcp(String address, int port) throws IOException {
 		long latency = -1;
-		try {
-			//Simple way to measure latency
-			latency = System.nanoTime();
-			Socket socket = new Socket();
-			socket.connect(new InetSocketAddress(address, 80), 1000);
-			DataInputStream dis = new DataInputStream(socket.getInputStream());
-			PrintStream ps = new PrintStream(socket.getOutputStream());
-			String msg = "Hi";
-			ps.println(msg);
-			latency = System.nanoTime() - latency;
-			socket.close();
-		} catch (IOException e) {
-			//No connection?
-			e.printStackTrace();
-		}
+		//Simple way to measure latency
+		latency = System.nanoTime();
+		Socket socket = new Socket();
+		socket.connect(new InetSocketAddress(address, port), 1000);
+		DataInputStream dis = new DataInputStream(socket.getInputStream());
+		PrintStream ps = new PrintStream(socket.getOutputStream());
+		String msg = "Hi";
+		ps.println(msg);
+		latency = System.nanoTime() - latency;
+		socket.close();
 		return latency;
 	}
 

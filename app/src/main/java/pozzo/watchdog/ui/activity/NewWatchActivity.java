@@ -1,4 +1,4 @@
-package pozzo.watchdog.activity;
+package pozzo.watchdog.ui.activity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import pozzo.watchdog.ItemMenuHelper;
 import pozzo.watchdog.R;
 import pozzo.watchdog.business.WatchEntryBusiness;
 import pozzo.watchdog.pojo.WatchEntry;
-import pozzo.watchdog.view.FrequencySeekBar;
+import pozzo.watchdog.ui.view.FrequencySeekBar;
 
 /**
  * Activity to create a new {@link WatchEntry} object and send it to persistence.

@@ -1,4 +1,4 @@
-package pozzo.watchdog.view;
+package pozzo.watchdog.ui.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

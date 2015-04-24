@@ -6,7 +6,10 @@ import android.database.Cursor;
 import pozzo.watchdog.pojo.WatchEntry;
 
 /**
- * Created by ghost on 17/04/15.
+ * {@link WatchEntry} table representation.
+ *
+ * @author Luiz Gustavo Pozzo
+ * @since 17/04/15.
  */
 public class WatchEntryCr {
 	public static final String TB_NAME = "watchEntry";

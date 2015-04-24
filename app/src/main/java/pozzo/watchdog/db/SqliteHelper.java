@@ -18,6 +18,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(WatchEntryCr.TB_CREATE);
+		db.execSQL(PingRequestCr.TB_CREATE);
 	}
 
 	@Override

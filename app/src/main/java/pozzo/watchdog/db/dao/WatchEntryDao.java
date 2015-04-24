@@ -1,9 +1,10 @@
-package pozzo.watchdog.dao;
+package pozzo.watchdog.db.dao;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import pozzo.watchdog.db.ConexaoDBManager;
 import pozzo.watchdog.db.WatchEntryCr;
@@ -60,5 +61,26 @@ public class WatchEntryDao {
 		if(cur.moveToNext())
 			entry = WatchEntryCr.objectFrom(cur);
 		return entry;
+	}
+
+	/**
+	 * Get every entry that should be watched before given timestamp.
+	 *
+	 * @param timestamp to compared on database.
+	 * @return All entries to be watched before given timestamp.
+	 */
+	public List<WatchEntry> getTriggersBefore(long timestamp) {
+		List<WatchEntry> entries = new ArrayList<>();
+
+		SQLiteDatabase db = new ConexaoDBManager().getDb();
+		Cursor cur = db.query(WatchEntryCr.TB_NAME, null,
+				WatchEntryCr.NEXT_WATCH + " < " + timestamp,
+				//I prefer to run on order
+				null, null, null, WatchEntryCr.NEXT_WATCH + " DESC");
+
+		while(cur.moveToNext()) {
+			entries.add(WatchEntryCr.objectFrom(cur));
+		}
+		return entries;
 	}
 }

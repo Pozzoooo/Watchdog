@@ -1,8 +1,9 @@
-package pozzo.watchdog.frag;
+package pozzo.watchdog.ui.frag;
 
 import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
@@ -11,12 +12,17 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.io.IOException;
 
 import pozzo.watchdog.R;
 import pozzo.watchdog.SimpleCursorLoader;
 import pozzo.watchdog.adapter.WatchEntryAdapter;
+import pozzo.watchdog.business.WatchEntryBusiness;
 import pozzo.watchdog.db.ConexaoDBManager;
 import pozzo.watchdog.db.WatchEntryCr;
+import pozzo.watchdog.pojo.WatchEntry;
 
 /**
  * List containing {@link pozzo.watchdog.pojo.WatchEntry} saved on database.
@@ -56,6 +62,42 @@ public class WatchEntryFragList extends ListFragment
 		super.onDestroy();
 		conexao.close();
 	}
+
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		WatchEntry watchEntry = (WatchEntry) getListAdapter().getItem(position);
+		check.execute(watchEntry);
+		//TODO I will need a spinner on the given row... but how?
+	}
+
+	/**
+	 * Checks wathever has to check on the entry, like ping...
+	 *
+	 * param watchEntry to be checked.
+	 * Works for a single entry, pleas does not send more than one!
+	 */
+	AsyncTask<WatchEntry, Void, Long> check = new AsyncTask<WatchEntry, Void, Long>() {
+		@Override
+		protected Long doInBackground(WatchEntry... params) {
+			WatchEntryBusiness bus = new WatchEntryBusiness();
+			try {
+				return bus.ping(params[0]);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return -1l;
+		}
+
+		@Override
+		protected void onPostExecute(Long aLong) {
+			if(-1l == aLong) {
+				throw new RuntimeException("missing error message");
+				//TODO error message
+			} else {
+				//TODO Show latency on a cool message
+			}
+		}
+	};
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {

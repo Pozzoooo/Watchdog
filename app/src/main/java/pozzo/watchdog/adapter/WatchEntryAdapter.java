@@ -39,7 +39,7 @@ public class WatchEntryAdapter extends CursorAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public WatchEntry getItem(int position) {
 		Cursor cursor = (Cursor) super.getItem(position);
 		if(cursor == null)
 			return null;

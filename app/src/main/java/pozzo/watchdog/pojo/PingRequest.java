@@ -1,18 +1,28 @@
 package pozzo.watchdog.pojo;
 
 /**
- * Created by ghost on 17/04/15.
+ * Will be used like a log, so we can get know of all that happened on our watchdog.
+ *
+ * @author Luiz Gustavo Pozzo
+ * @since 17/04/15.
  */
 public class PingRequest {
-	private String address;
+	private long id;
+	private long fkWatchEntry;
+	private long date;
 	private long latency;
+	private String fromNetwork;
 
-	public String getAddress() {
-		return address;
+	{
+		id = -1;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public long getLatency() {
@@ -21,5 +31,29 @@ public class PingRequest {
 
 	public void setLatency(long latency) {
 		this.latency = latency;
+	}
+
+	public long getDate() {
+		return date;
+	}
+
+	public void setDate(long date) {
+		this.date = date;
+	}
+
+	public String getFromNetwork() {
+		return fromNetwork;
+	}
+
+	public void setFromNetwork(String fromNetwork) {
+		this.fromNetwork = fromNetwork;
+	}
+
+	public long getFkWatchEntry() {
+		return fkWatchEntry;
+	}
+
+	public void setFkWatchEntry(long fkWatchEntry) {
+		this.fkWatchEntry = fkWatchEntry;
 	}
 }
