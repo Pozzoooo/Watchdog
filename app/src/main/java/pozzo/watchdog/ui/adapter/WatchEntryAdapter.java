@@ -1,4 +1,4 @@
-package pozzo.watchdog.adapter;
+package pozzo.watchdog.ui.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -13,7 +13,10 @@ import pozzo.watchdog.db.WatchEntryCr;
 import pozzo.watchdog.pojo.WatchEntry;
 
 /**
- * Created by ghost on 19/04/15.
+ * Adapter for the {@link WatchEntry} objects using R.layout.row_watch_entry.
+ *
+ * @author Luiz Gustavo Pozzo
+ * @since 19/04/15.
  */
 public class WatchEntryAdapter extends CursorAdapter {
 	private LayoutInflater inflater;

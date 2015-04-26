@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,10 +30,16 @@ public class AlarmReceiver extends BroadcastReceiver {
 		}
 
 		new AsyncTask<Void, Void, Void>() {
+			private WakeLock wakeLock;
+
 			@Override
 			protected void onPreExecute() {
-				//TODO Wake lock
-				//TODO add wake lock permission
+				//We make sure cpu stays on
+				PowerManager powerManager = (PowerManager)
+						context.getSystemService(Context.POWER_SERVICE);
+				wakeLock = powerManager.newWakeLock(
+						PowerManager.PARTIAL_WAKE_LOCK, "WatchdogTrigger");
+				wakeLock.acquire();
 			}
 
 			@Override
@@ -42,8 +50,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 			@Override
 			protected void onPostExecute(Void aVoid) {
-				//TODO I don't think it will work this way with the preferences...
-				//new WatchEntryBusiness().updateNextWatch(context);
+				wakeLock.release();
 			}
 		}.execute();
 	}
@@ -59,7 +66,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 		try {
 			List<WatchEntry> entries = bus.getTriggersBefore(System.currentTimeMillis());
 			for (WatchEntry it : entries) {
-				bus.ping(it);
+				bus.watch(it);
 			}
 		} catch (IOException e) {
 			fallback(context);

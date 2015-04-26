@@ -1,17 +1,23 @@
 package pozzo.watchdog.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import pozzo.watchdog.pojo.WatchEntry;
 
 import pozzo.watchdog.R;
 
 /**
+ * Will built app flow using a list with {@link WatchEntry} and a menu for actions.
+ * //TODO long click for action menu
+ * //TODO check if insertion is ok and list is showing entries
  *
+ * @author Luiz Gustavo Pozzo
+ * @since 17/04/15
  */
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +27,6 @@ public class MainActivity extends ActionBarActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.menu_main, menu);
 		return true;
 	}

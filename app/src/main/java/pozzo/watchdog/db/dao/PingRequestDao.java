@@ -7,9 +7,10 @@ import pozzo.watchdog.db.PingRequestCr;
 import pozzo.watchdog.pojo.PingRequest;
 
 /**
- * Created by ghost on 21/04/15.
+ * Persistence of {@link PingRequest}.
  *
- * TODO implement PingRequestDao
+ * @author Luiz Gustavo Pozzo
+ * @since 21/04/15.
  */
 public class PingRequestDao {
 

@@ -18,7 +18,7 @@ import java.io.IOException;
 
 import pozzo.watchdog.R;
 import pozzo.watchdog.SimpleCursorLoader;
-import pozzo.watchdog.adapter.WatchEntryAdapter;
+import pozzo.watchdog.ui.adapter.WatchEntryAdapter;
 import pozzo.watchdog.business.WatchEntryBusiness;
 import pozzo.watchdog.db.ConexaoDBManager;
 import pozzo.watchdog.db.WatchEntryCr;

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import pozzo.watchdog.App;
 import pozzo.watchdog.Ping;
 import pozzo.watchdog.R;
 import pozzo.watchdog.db.dao.PingRequestDao;
@@ -26,6 +27,8 @@ import pozzo.watchdog.util.ReceiverUtil;
  *
  * @author Luiz Gustavo Pozzo
  * @since 19/04/15.
+ *
+ * TODO for the sake of perfomance I should iplement a batch watch
  */
 public class WatchEntryBusiness {
 	private static final String NEXT_CAN_BE_DELAYED = "nextCanBeDelayed";
@@ -69,6 +72,34 @@ public class WatchEntryBusiness {
 	}
 
 	/**
+	 * It calculates and update next time this entry will be watchned.
+	 *
+	 * @param watchEntry to be updated.
+	 */
+	public void updateToNextWatch(WatchEntry watchEntry) {
+		long frequency = watchEntry.getFrequency();
+		watchEntry.setNextWatch(System.currentTimeMillis() + frequency);
+		new WatchEntryDao().replace(watchEntry);
+
+		//Schedule
+		checkUpdateNextWatch(App.getAppContext(), watchEntry);
+	}
+
+	/**
+	 * It will check if WatchEntry is alive.
+	 *
+	 * @param watchEntry to be checked.
+	 * @return Latency from the request.
+	 * @throws IOException Not able to reach network.
+	 */
+	public long watch(WatchEntry watchEntry) throws IOException {
+		long latency = ping(watchEntry);
+		//If an exception happens, update should never run
+		updateToNextWatch(watchEntry);
+		return latency;
+	}
+
+	/**
 	 * It will execute the ping rountine for the given entry and updates the next time to check.
 	 *
 	 * @param watchEntry to be checked.
@@ -82,7 +113,7 @@ public class WatchEntryBusiness {
 		request.setFkWatchEntry(watchEntry.getId());
 		request.setDate(System.currentTimeMillis());
 		request.setLatency(latency);
-		//TODO get network name
+		//TODO get network name, if it takes too long, maybe I can run it in parallel
 		new PingRequestDao().replace(request);
 		return latency;
 	}

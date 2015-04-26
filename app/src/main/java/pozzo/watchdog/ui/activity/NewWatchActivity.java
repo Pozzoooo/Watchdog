@@ -1,5 +1,6 @@
 package pozzo.watchdog.ui.activity;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -36,10 +37,16 @@ public class NewWatchActivity extends ActionBarActivity {
 	 */
 	public void onDone(View view) {
 		new AsyncTask<Void, Void, Long>() {
+			private Context context;
+			@Override
+			protected void onPreExecute() {
+				context = NewWatchActivity.this;
+			}
+
 			@Override
 			protected Long doInBackground(Void... params) {
 				WatchEntry watchEntry = getObject();
-				return new WatchEntryBusiness().replace(watchEntry);
+				return new WatchEntryBusiness().replace(context, watchEntry);
 			}
 
 			@Override

@@ -26,7 +26,7 @@ public class ConexaoDBManager {
 	/**
 	 * @return A new connection if non created yet, or an existing and maybe already in use one.
 	 *
-	 * TODO This looks like an wasy point for leaking resource or context, needs approach review.
+	 * TODO This looks like an easy point for leaking resource or context, needs approach review.
 	 */
 	public SQLiteDatabase getDb() {
 		if(db == null || !db.isOpen())
