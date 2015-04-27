@@ -9,14 +9,8 @@
                 android:orientation="vertical"
                 tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/lOut"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="empty"/>
-
     <fragment
-        android:id="@+id/listWatchEntries"
+        android:id="@+id/fragWatchEntries"
         android:name="pozzo.watchdog.ui.frag.WatchEntryFragList"
         android:layout_width="match_parent"
         android:layout_height="0dp"

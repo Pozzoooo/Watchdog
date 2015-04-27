@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -66,17 +67,24 @@ public class WatchEntryFragList extends ListFragment
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		WatchEntry watchEntry = (WatchEntry) getListAdapter().getItem(position);
-		check.execute(watchEntry);
+		new CheckTask().execute(watchEntry);
 		//TODO I will need a spinner on the given row... but how?
 	}
 
 	/**
-	 * Checks wathever has to check on the entry, like ping...
+	 * Refresh lists with fresh data.
+	 */
+	public void refreshList() {
+		getLoaderManager().restartLoader(1, null, this);
+	}
+
+	/**
+	 * Checks whatever has to check on the entry, like ping...
 	 *
 	 * param watchEntry to be checked.
 	 * Works for a single entry, pleas does not send more than one!
 	 */
-	AsyncTask<WatchEntry, Void, Long> check = new AsyncTask<WatchEntry, Void, Long>() {
+	private class CheckTask extends AsyncTask<WatchEntry, Void, Long> {
 		@Override
 		protected Long doInBackground(WatchEntry... params) {
 			WatchEntryBusiness bus = new WatchEntryBusiness();
@@ -91,9 +99,10 @@ public class WatchEntryFragList extends ListFragment
 		@Override
 		protected void onPostExecute(Long aLong) {
 			if(-1l == aLong) {
-				throw new RuntimeException("missing error message");
+				Toast.makeText(getActivity(), "Error on ping...", Toast.LENGTH_SHORT).show();
 				//TODO error message
 			} else {
+				Toast.makeText(getActivity(), "latency: " + (aLong/1000000l), Toast.LENGTH_SHORT).show();
 				//TODO Show latency on a cool message
 			}
 		}

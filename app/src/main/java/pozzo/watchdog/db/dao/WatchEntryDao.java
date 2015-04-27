@@ -26,7 +26,7 @@ public class WatchEntryDao {
 	 */
 	public long replace(WatchEntry watchEntry) {
 		SQLiteDatabase db = new ConexaoDBManager().getDb();
-		return db.replace(WatchEntryCr.TB_NAME, null, WatchEntryCr.getValues(watchEntry));
+		return db.replaceOrThrow(WatchEntryCr.TB_NAME, null, WatchEntryCr.getValues(watchEntry));
 	}
 
 	/**

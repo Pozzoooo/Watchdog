@@ -103,7 +103,7 @@ public class WatchEntryBusiness {
 	 * It will execute the ping rountine for the given entry and updates the next time to check.
 	 *
 	 * @param watchEntry to be checked.
-	 * @return Latency from the request.
+	 * @return Latency from the request in nanoseconds.
 	 * @throws IOException Not able to reach network.
 	 */
 	public long ping(WatchEntry watchEntry) throws IOException {

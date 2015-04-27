@@ -21,7 +21,7 @@ import pozzo.watchdog.ui.view.FrequencySeekBar;
  * @author Luiz Gustavo Pozzo
  * @since 17/04/15.
  */
-public class NewWatchActivity extends ActionBarActivity {
+public class AddWatchActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class NewWatchActivity extends ActionBarActivity {
 			private Context context;
 			@Override
 			protected void onPreExecute() {
-				context = NewWatchActivity.this;
+				context = AddWatchActivity.this;
 			}
 
 			@Override

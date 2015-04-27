@@ -25,7 +25,8 @@ import pozzo.watchdog.pojo.WatchEntry;
 public class AlarmReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(final Context context, Intent intent) {
-		if(intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+		String action = intent.getAction();
+		if(action != null && action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
 			context.unregisterReceiver(this);
 		}
 

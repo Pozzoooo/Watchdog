@@ -34,13 +34,14 @@ public class Ping {
 	/**
 	 * Test reachability using a TCP echo message.
 	 *
-	 * @return latency.
+	 * @return latency in nanoseconds.
 	 */
 	public long pingRequestTcp(String address, int port) throws IOException {
 		long latency = -1;
 		//Simple way to measure latency
 		latency = System.nanoTime();
 		Socket socket = new Socket();
+		//TODO put timout on config file
 		socket.connect(new InetSocketAddress(address, port), 1000);
 		DataInputStream dis = new DataInputStream(socket.getInputStream());
 		PrintStream ps = new PrintStream(socket.getOutputStream());
